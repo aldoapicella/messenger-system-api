@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Controller } from '@nestjs/common';
+import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  @MessagePattern({ cmd: 'get-user' })
+  async getUser(@Ctx() context: RmqContext) {
+    const channel = context.getChannelRef();
+    const message = context.getMessage();
 
-  @Get()
-  getHello(): string {
-    return this.authService.getHello();
+    const user = { id: 1, name: 'John Doe' };
+
+    channel.ack(message);
+
+    return user;
   }
 }

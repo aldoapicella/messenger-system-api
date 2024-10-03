@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { SharedService } from './shared.service';
+import { ConfigModule } from '@nestjs/config';
+import { RabbitMQConfigService } from './config/rabbitmq.config';
 
 @Module({
-  providers: [SharedService],
-  exports: [SharedService],
+  imports: [ConfigModule],
+  providers: [RabbitMQConfigService],
+  exports: [RabbitMQConfigService],
 })
 export class SharedModule {}
