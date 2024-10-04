@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GatewayController } from './gateway.controller';
 import { SharedModule } from '@app/shared';
 import { RabbitMQConfigService } from '@app/shared/config';
+import { AuthController } from './controllers/auth.controller';
 
 @Module({
   imports: [
@@ -12,7 +13,9 @@ import { RabbitMQConfigService } from '@app/shared/config';
     }),
     SharedModule,
   ],
-  controllers: [GatewayController],
+  controllers: [
+    GatewayController,
+    AuthController,],
   providers: [
     {
       provide: 'AUTH_SERVICE',
