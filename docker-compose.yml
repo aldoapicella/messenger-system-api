@@ -48,7 +48,7 @@ services:
   api:
     build:
       context: ./
-      dockerfile: ./apps/api/Dockerfile
+      dockerfile: ./apps/gateway/Dockerfile
     ports:
       - '4000:5000'
     env_file:
@@ -59,4 +59,4 @@ services:
     volumes:
       - .:/usr/src/app # any change to base folder should be reflected
       - /usr/src/app/node_modules
-    command: npm run start:dev api
+    command: npm run start:dev gateway

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GatewayController } from './gateway.controller';
 import { SharedModule } from '@app/shared';
 import { RabbitMQConfigService } from '@app/shared/config';
 
@@ -13,9 +12,8 @@ import { RabbitMQConfigService } from '@app/shared/config';
     }),
     SharedModule,
   ],
-  controllers: [AppController],
+  controllers: [GatewayController],
   providers: [
-    AppService,
     {
       provide: 'AUTH_SERVICE',
       useFactory: (rabbitMQConfigService: RabbitMQConfigService) => {
@@ -26,4 +24,4 @@ import { RabbitMQConfigService } from '@app/shared/config';
     },
   ],
 })
-export class AppModule {}
+export class GatewayModule {}
