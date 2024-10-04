@@ -21,11 +21,11 @@
     },
     "auth": {
       "type": "application",
-      "root": "apps/auth",
+      "root": "apps/authentication",
       "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
+      "sourceRoot": "apps/authentication/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
+        "tsConfigPath": "apps/authentication/tsconfig.app.json"
       }
     },
     "shared": {
