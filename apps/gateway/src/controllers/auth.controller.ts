@@ -1,4 +1,4 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Controller('auth')
@@ -7,14 +7,25 @@ export class AuthController {
     @Inject('AUTH_SERVICE') private readonly authService: ClientProxy,
   ) {}
 
-  @Get('user')
+  @Get('users')
   async getUser() {
     try {
-      const result = this.authService.send({ cmd: 'get-user' }, {});
+      const result = this.authService.send({ cmd: 'get-users' }, {});
       return result;
     } catch (error) {
       console.error('Error while fetching user:', error);
       throw error; 
+    }
+  }
+
+  @Post('register')
+  async register() {
+    try {
+      const result = this.authService.send({ cmd: 'register' }, {});
+      return result;
+    } catch (error) {
+      console.error('Error while registering user:', error);
+      throw error;
     }
   }
 }
