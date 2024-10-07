@@ -1,1 +1,1 @@
-export * from './shared.service';
+export * from './rabbitmq.service';

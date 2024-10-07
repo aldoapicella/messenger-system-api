@@ -1,8 +1,5 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ClientProxyFactory, Transport } from '@nestjs/microservices';
-
-import { SharedService } from '../services';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -11,38 +8,5 @@ import { SharedService } from '../services';
       envFilePath: './.env',
     }),
   ],
-  providers: [SharedService],
-  exports: [SharedService],
 })
-export class SharedModule {
-  static registerRmq(service: string, queue: string): DynamicModule {
-    const providers = [
-      {
-        provide: service,
-        useFactory: (configService: ConfigService) => {
-          const USER = configService.get('RABBITMQ_USER');
-          const PASSWORD = configService.get('RABBITMQ_PASS');
-          const HOST = configService.get('RABBITMQ_HOST');
-
-          return ClientProxyFactory.create({
-            transport: Transport.RMQ,
-            options: {
-              urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-              queue,
-              queueOptions: {
-                durable: true, // Queue survives broker restart
-              },
-            },
-          });
-        },
-        inject: [ConfigService],
-      },
-    ];
-
-    return {
-      module: SharedModule,
-      providers,
-      exports: providers,
-    };
-  }
-}
+export class SharedModule {}

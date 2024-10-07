@@ -1,7 +1,7 @@
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 
-import { SharedService } from '@app/shared/services';
+import { RabbitMQService } from '@app/shared';
 
 import { AuthModule } from './auth.module';
 
@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
 
   const configService = app.get(ConfigService);
-  const sharedService = app.get(SharedService);
+  const sharedService = app.get(RabbitMQService);
 
   const queue = configService.get('RABBITMQ_AUTH_QUEUE');
 

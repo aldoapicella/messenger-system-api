@@ -1,21 +1,26 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { RabbitMQModule, UserEntity, PostgresDBModule, RabbitMQService } from '@app/shared';
+
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { SharedModule } from '@app/shared';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostgresDBModule } from '@app/shared/modules';
-import { UserEntity } from '@app/shared/entities';
 
 @Module({
   imports: [
-    SharedModule,
+    RabbitMQModule,
     PostgresDBModule,
-
     TypeOrmModule.forFeature([
       UserEntity,
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: 'IRabbitMQService',
+      useClass: RabbitMQService,
+    }
+  ],
 })
 export class AuthModule {}
