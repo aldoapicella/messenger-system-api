@@ -9,23 +9,11 @@ export class AuthController {
 
   @Get('users')
   async getUser() {
-    try {
-      const result = this.authService.send({ cmd: 'get-users' }, {});
-      return result;
-    } catch (error) {
-      console.error('Error while fetching user:', error);
-      throw error; 
-    }
+    return this.authService.send({ cmd: 'get-users' }, {});
   }
 
   @Post('register')
   async register() {
-    try {
-      const result = this.authService.send({ cmd: 'register' }, {});
-      return result;
-    } catch (error) {
-      console.error('Error while registering user:', error);
-      throw error;
-    }
+    return this.authService.send({ cmd: 'register' }, {});
   }
 }
