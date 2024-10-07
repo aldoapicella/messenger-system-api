@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -17,7 +16,16 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/gateway/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/gateway/test/jest-e2e.json",
+    "build:gateway": "nest build gateway",
+    "build:gateway:prod": "nest build gateway --prod",
+    "build:auth": "nest build auth",
+    "build:auth:prod": "nest build auth --prod",
+    "build": "npm run build:gateway && npm run build:auth",
+    "auth:typeorm": "npx typeorm -d ./dist/apps/authentication/apps/authentication/src/db/data-source.js",
+    "generate:migration": "npm run auth:typeorm -- migration:generate",
+    "run:migration": "npm run auth:typeorm -- migration:run",
+    "revert:migration": "npm run auth:typeorm -- migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
