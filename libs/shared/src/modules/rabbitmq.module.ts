@@ -1,7 +1,14 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { RabbitMQService } from '../services';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: './.env',
+    }),
+  ],
   providers: [RabbitMQService],
   exports: [RabbitMQService],
 })

@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { RabbitMQModule, RabbitMQService, SharedModule } from '@app/shared';
+import { RabbitMQModule, RabbitMQService } from '@app/shared';
 
 import { PresenceController } from './presence.controller';
 import { PresenceService } from './presence.service';
 
 @Module({
   imports: [
-    SharedModule,
     RabbitMQModule,
   ],
   controllers: [PresenceController],

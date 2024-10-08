@@ -1,6 +1,5 @@
 export * from './modules/rabbitmq.module';
 export * from './modules/postgresdb.module';
-export * from './modules/shared.module';
 
 export * from './services/rabbitmq.service';
 
