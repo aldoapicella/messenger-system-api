@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpException, HttpStatus, Inject, Post } from '
 import { ClientProxy } from '@nestjs/microservices';
 
 import { SignupUserDto } from '@app/shared';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom as sendAsyncMessage} from 'rxjs';
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +18,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() signupUser: SignupUserDto) {
     try {
-      const newUserId = await lastValueFrom(this.authService.send({ cmd: 'register' }, signupUser));
+      const newUserId = await sendAsyncMessage(this.authService.send({ cmd: 'register' }, signupUser));
       return {
         userId: newUserId
       };

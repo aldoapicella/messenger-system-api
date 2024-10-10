@@ -5,10 +5,11 @@ import { Repository } from 'typeorm';
 
 import { SignupUserDto, UserEntity } from '@app/shared';
 
+import { IAuthService } from './interfaces';
 import { PasswordUtil } from './common/utils';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuthService {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
   ) { }
@@ -17,7 +18,7 @@ export class AuthService {
     return this.userRepository.find();
   }
 
-  async registerUser(signupUser: Readonly<SignupUserDto>): Promise<string> {
+  async signup(signupUser: Readonly<SignupUserDto>): Promise<string> {
     const [usernameExists, emailExists] = await Promise.all([
       this.doesUserExist(signupUser.username),
       this.doesUserExist(signupUser.email),

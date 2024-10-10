@@ -5,7 +5,6 @@ import { RabbitMQModule, UserEntity, PostgresDBModule, RabbitMQService } from '@
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UserCommandService } from '../../accounts/src/modules/user/services/user-command.service';
 
 @Module({
   imports: [
@@ -17,12 +16,14 @@ import { UserCommandService } from '../../accounts/src/modules/user/services/use
   ],
   controllers: [AuthController],
   providers: [
-    AuthService,
+    {
+      provide: 'IAuthService',
+      useClass: AuthService,
+    },
     {
       provide: 'IRabbitMQService',
       useClass: RabbitMQService,
     },
-    UserCommandService
   ],
 })
 export class AuthModule {}
