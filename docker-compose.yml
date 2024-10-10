@@ -73,6 +73,20 @@ services:
       - rabbitmq
       - auth
     volumes:
-      - .:/usr/src/app # any change to base folder should be reflected
+      - .:/usr/src/app
       - /usr/src/app/node_modules
     command: npm run start:dev gateway
+
+  accounts:
+    build:
+      context: ./
+      dockerfile: ./apps/accounts/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - postgres
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev accounts

@@ -1,7 +1,7 @@
 import { Controller, Inject } from '@nestjs/common';
-import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
+import { Ctx, MessagePattern, Payload, RmqContext, RpcException } from '@nestjs/microservices';
 
-import { IRabbitMQService } from '@app/shared';
+import { IRabbitMQService, SignupUserDto, sendRpcException } from '@app/shared';
 
 import { AuthService } from './auth.service';
 
@@ -23,12 +23,13 @@ export class AuthController {
   }
 
   @MessagePattern({ cmd: 'register' })
-  async register(@Ctx() context: RmqContext) {
-
-    const user = await this.authService.saveUser();
-
-    this.rabbitMQService.acknowledgeMessage(context);
-
-    return user;
+  async register(@Ctx() context: RmqContext, @Payload() user: SignupUserDto) {
+    try {
+      this.rabbitMQService.acknowledgeMessage(context);
+      const result = await this.authService.registerUser(user);
+      return result;
+    } catch (error) {
+      sendRpcException(error);
+    }
   }
 }
