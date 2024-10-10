@@ -15,9 +15,6 @@ export class UserEntity {
   @Column({name: 'display_name'})
   displayName: string;
 
-  @Column({name: 'password', select: false})
-  password: string;
-
   @Column({name: 'profile_picture_url', nullable: true})
   profilePictureUrl: string;
 
@@ -27,7 +24,12 @@ export class UserEntity {
   // TODO: Implement signup method
   // @Column({name: 'signup_method', type: 'enum', enum: SignupMethod})
   // signupMethod: SignupMethod;
-
   @Column({name: 'is_email_verified', default: false})
   isEmailVerified: boolean;
+
+  @Column({name: 'password', select: false})
+  password: string;
+
+  @Column({name: 'refresh_token', nullable: true, select: false})
+  refreshToken: string;
 }

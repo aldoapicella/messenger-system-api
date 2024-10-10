@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { RabbitMQModule, UserEntity, PostgresDBModule, RabbitMQService } from '@app/shared';
 
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { AuthenticationController } from './authentication.controller';
+import { AuthenticationService } from './authentication.service';
 
 @Module({
   imports: [
@@ -14,11 +14,11 @@ import { AuthService } from './auth.service';
       UserEntity,
     ]),
   ],
-  controllers: [AuthController],
+  controllers: [AuthenticationController],
   providers: [
     {
       provide: 'IAuthService',
-      useClass: AuthService,
+      useClass: AuthenticationService,
     },
     {
       provide: 'IRabbitMQService',
@@ -26,4 +26,4 @@ import { AuthService } from './auth.service';
     },
   ],
 })
-export class AuthModule {}
+export class AuthenticationModule {}

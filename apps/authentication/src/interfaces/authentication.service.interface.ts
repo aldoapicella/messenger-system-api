@@ -1,6 +1,6 @@
 import { SignupUserDto } from "@app/shared";
 
-export interface IAuthService {
+export interface IAuthenticationService {
     findAllUsers();
     signup(user: Readonly<SignupUserDto>): Promise<string>;
 }

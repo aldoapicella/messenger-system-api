@@ -10,9 +10,11 @@ export * from './entities/user.entity';
 
 // Interfaces
 export * from './interfaces/rabbitmq.service.interface';
+export * from './interfaces/auth-response.interface';
 
 // DTOs
 export * from './dtos/signup-user.dto';
+export * from './dtos/login-user.dto';
 
 // Enums
 export * from './enums/signup-method.enum';

@@ -1,1 +1,1 @@
-export * from './auth.service.interface';
+export * from './authentication.service.interface';

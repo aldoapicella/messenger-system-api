@@ -5,11 +5,11 @@ import { Repository } from 'typeorm';
 
 import { SignupUserDto, UserEntity } from '@app/shared';
 
-import { IAuthService } from './interfaces';
+import { IAuthenticationService } from './interfaces';
 import { PasswordUtil } from './common/utils';
 
 @Injectable()
-export class AuthService implements IAuthService {
+export class AuthenticationService implements IAuthenticationService {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
   ) { }

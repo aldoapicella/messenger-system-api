@@ -3,10 +3,10 @@ import { ConfigService } from '@nestjs/config';
 
 import { RabbitMQService } from '@app/shared';
 
-import { AuthModule } from './auth.module';
+import { AuthenticationModule } from './authentication.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AuthModule);
+  const app = await NestFactory.create(AuthenticationModule);
 
   const configService = app.get(ConfigService);
   const rabbitMQService = app.get(RabbitMQService);
